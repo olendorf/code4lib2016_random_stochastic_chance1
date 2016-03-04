@@ -39,6 +39,7 @@ shinyServer(function(input, output, session) {
     )
   })
   
+  
   output$scores <- renderPlot({
     scores = get.scores()
 

@@ -4,7 +4,6 @@ shinyUI(fluidPage(
   
   shinyjs::useShinyjs(),
   
-  allowable.sides <- c(1:20, 22 , 24, 30, 32, 34, 48, 50, 60, 100, 120, 144),
 
   # Application title
   titlePanel("Random Stocastic Chance"),
@@ -25,7 +24,8 @@ shinyUI(fluidPage(
                     min = 1,
                     value = 1000),
         
-        selectInput("sides", "Number of Sides", allowable.sides)
+        selectInput("sides", "Number of Sides", 
+                    c(1:20, 22 , 24, 30, 32, 34, 48, 50, 60, 100, 120, 144))
       ),
       
       wellPanel(
