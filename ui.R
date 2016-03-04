@@ -1,6 +1,7 @@
 library(shiny)
+library(shinythemes)
 
-shinyUI(fluidPage(
+shinyUI(fluidPage(theme = "custom.css",
   
   shinyjs::useShinyjs(),
   
