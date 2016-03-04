@@ -9,6 +9,8 @@ library(shiny)
 
 shinyUI(fluidPage(
   
+  shinyjs::useShinyjs(),
+  
   allowable.sides <- c(1:20, 22 , 24, 30, 32, 34, 48, 50, 60, 100, 120, 144),
 
   # Application title
@@ -35,12 +37,16 @@ shinyUI(fluidPage(
                   "Number of bins:",
                   min = 1,
                   max = 50,
-                  value = 30)
+                  value = 30),
+      
+      checkboxInput("auto_bins",
+                    "Bin Automatically")
     ),
 
     # Show a plot of the generated distribution
     mainPanel(
       plotOutput("scores")
+      
     )
   )
 ))
