@@ -42,7 +42,11 @@ shinyUI(fluidPage(
 
     # Show a plot of the generated distribution
     mainPanel(
-      plotOutput("scores")
+      tabsetPanel(type = "tabs", 
+        tabPanel("Plot", plotOutput("scores")),
+        tabPanel("Summary", verbatimTextOutput("summary")),
+        tabPanel("Table", tableOutput("table"))
+      )
       
     )
   )

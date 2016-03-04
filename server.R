@@ -39,7 +39,6 @@ shinyServer(function(input, output, session) {
     )
   })
   
-  
   output$scores <- renderPlot({
     scores = get.scores()
 
@@ -58,6 +57,10 @@ shinyServer(function(input, output, session) {
     histogrm
     
   })
+  
+  output$summary <- renderPrint({summary(get.scores())})
+  
+  output$table <- renderTable({data.frame(scores=get.scores())})
 
 
 })
