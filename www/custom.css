@@ -1,3 +1,7 @@
 h1, h2 {
   color: red;
 }
+
+.well {
+  background-color: #e6fff !important;
+}
