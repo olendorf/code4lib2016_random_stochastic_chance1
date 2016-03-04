@@ -1,10 +1,3 @@
-
-# This is the server logic for a Shiny web application.
-# You can find out more about building applications with Shiny here:
-#
-# http://shiny.rstudio.com
-#
-
 library(shiny)
 library(shinyjs)
 
@@ -24,6 +17,8 @@ dice.rolls <- function(number.dice = 1, number.rolls = 1, sides=6)
 allowable.sides <- c(1:20, 22 , 24, 30, 32, 34, 48, 50, 60, 100, 120, 144)
 
 shinyServer(function(input, output, session) {
+  
+  # Observer to see if we should disable the bins slider.
   observe({
     if (input$auto_bins == TRUE) {
       shinyjs::disable("bins")
@@ -32,6 +27,10 @@ shinyServer(function(input, output, session) {
     }
   })
   
+  # Wrapping dice.rolls() inside the reactive method
+  # and aliasing it in get.scores() provides a caching method.
+  # Unless the actual inputs for dice.rolls() changes this
+  # method won't get called again.
   get.scores <- reactive({
     dice.rolls(
       number.dice = input$dice, 
@@ -42,15 +41,11 @@ shinyServer(function(input, output, session) {
   
   output$scores <- renderPlot({
     scores = get.scores()
-    
-    #bins <- seq(min(scores), max(scores), length.out = input$bins + 1)
-    
-#     if(min(scores) == max(scores))
-#     {
-#       bins <- (scores - 2):(scores + 2)
-#     }
+
     
     histogrm <- NULL
+    
+    # Testing if the bins should be autobinned or not.
     if(input$auto_bins)
     {
       histogrm <- hist(scores)
@@ -63,15 +58,5 @@ shinyServer(function(input, output, session) {
     
   })
 
-#   output$distPlot <- renderPlot({
-# 
-#     # generate bins based on input$bins from ui.R
-#     x    <- faithful[, 2]
-#     bins <- seq(min(x), max(x), length.out = input$bins + 1)
-# 
-#     # draw the histogram with the specified number of bins
-#     hist(x, breaks = bins, col = 'darkgray', border = 'white')
-# 
-#   })
 
 })
